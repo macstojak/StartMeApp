@@ -41,11 +41,18 @@ const MapWrapper = () => {
             locations => {
               if (locations.length > 0) {
                 let region = [{
-                  latitude: parseFloat(locations[0].latitude),
-                  longitude: parseFloat(locations[0].longitude),
-                  altitude: parseFloat(locations[0].altitude),
+                  name:"Your current position",
+                  geometry:{
+                    location:{
+                      lat: parseFloat(locations[0].latitude),
+                      lng: parseFloat(locations[0].longitude),
+                      alt: parseFloat(locations[0].altitude),
+                    }
+                  },
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
+                  
+                 
                 }];
                 
                 setMarkers(region);
@@ -78,15 +85,9 @@ const MapWrapper = () => {
     if (debouncedSearchTerm) {
       try {
         const filteredPlaces = await getPlaceFromApi(debouncedSearchTerm);
-        filteredPlaces.push({
-          name: 'Your position',
-          geometry: {
-            location: {lat: markers[0].latitude, lng: markers[0].longitude},
-          },
-        });
-        if (filteredPlaces) {
-          
-          setMarkers(...markers,filteredPlaces);
+        console.log("filtered", filteredPlaces)
+        if (filteredPlaces&&filteredPlaces.length>0) {
+          setMarkers(markers.concat(filteredPlaces));
         } else {
           setValue('');
         }

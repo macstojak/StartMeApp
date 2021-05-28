@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView,
   View,
   Image,
   Text,
@@ -11,17 +10,10 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const News = () => {
+const News = ({navigation}) => {
   const [news, setNews] = useState();
-  const storeData = async value => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue);
-    } catch (e) {
-    }
-  };
+ 
   const getNews = async () => {
     let response = await axios.get(
       'https://macsnewsscraper.herokuapp.com/news',
@@ -42,12 +34,9 @@ const News = () => {
 
       <TouchableOpacity
         style={styles.button}
-        onPress={() => navigation.navigate('Article', { navigation:navigation, href: href })}
+        onPress={() => navigation.navigate('Article', { href: href })}
       ><Text style={styles.buttonTitle}>Read more</Text></TouchableOpacity>
-
-
     </View>
-
   );
 
   const renderItem = ({ item }) => (

@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, {useState, useEffect} from "react";
-import {Image, TouchableOpacity, ImageBackground, ScrollView, SafeAreaView, View, Text, ActivityIndicator, StyleSheet} from "react-native";
+import {Image, ImageBackground, ScrollView, View, Text, ActivityIndicator, StyleSheet, TouchableOpacity} from "react-native";
 
 const Article = (data) =>{
     const [article, setArticle] = useState();
     const getArticle = async () =>{
+
         let href=data.route.params.href;
         try{
             let a = await axios.get(`https://macsnewsscraper.herokuapp.com/news/article?href=${href}`);
@@ -35,7 +36,7 @@ return(
             <Text style={styles.timestamp}>{article.magazine}</Text>
             <Text style={styles.content}>{article.content}</Text>
             <Text style={styles.timestamp}>{article.source}</Text>
-            
+            <TouchableOpacity   style={styles.button} onPress={()=> data.navigation.navigate('News')}><Text style={styles.buttonTitle}>Return to news</Text></TouchableOpacity>
         </ScrollView>
         )
         :

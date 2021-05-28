@@ -23,6 +23,8 @@ target 'StartMeApp' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+  pod 'ReactNativeAudioToolkit', :path => '../node_modules/@react-native-community/audio-toolkit'
+
   target 'StartMeAppTests' do
     inherit! :complete
     # Pods for testing
